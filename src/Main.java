@@ -61,11 +61,15 @@ public class Main {
         for (int t = 0; t <= end; t++) {
             String proc = "";
             SimulationResult.GanttSlot s = slotAt(r, t);
-            if (s != null && s.start == t && !s.pid.equals("CS")) proc = s.pid;
+            if (s != null && s.start == t) {
+                if (!s.pid.equals("CS")) proc = s.pid;
+                System.out.println("_".repeat(45));
+            }
             String[] lines = r.log.getOrDefault(t, "").split("\n");
             System.out.printf("%-6d %-9s %s%n", t, proc, lines[0]);
             for (int i = 1; i < lines.length; i++) System.out.println(indent + lines[i]);
         }
+        System.out.print("_".repeat(45));
     }
     // Find the process for specific time
     static SimulationResult.GanttSlot slotAt(SimulationResult r, int t) {
