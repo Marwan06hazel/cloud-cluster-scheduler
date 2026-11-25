@@ -1,0 +1,59 @@
+.app-root, .content-host {
+    -fx-background-color: #0b0f14;
+    -fx-font-family: "Segoe UI", "Inter", "System";
+    -fx-font-size: 13px;
+}
+
+.sidebar {
+    -fx-background-color: #0d1218;
+    -fx-padding: 18 14 16 14;
+    -fx-border-color: transparent #1a2330 transparent transparent;
+    -fx-border-width: 0 1 0 0;
+}
+
+.sidebar-section-label {
+    -fx-text-fill: #475569;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 4 0 4 8;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 9;
+    -fx-border-color: transparent;
+    -fx-border-radius: 9;
+    -fx-border-width: 1;
+    -fx-padding: 9 12 9 12;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.04);
+}
+
+.nav-button-active {
+    -fx-background-color: #131c26;
+    -fx-border-color: #2b3a4d;
+    -fx-border-width: 1;
+}
+
+.nav-icon {
+    -fx-stroke: #0463ec;
+    -fx-stroke-width: 1.6;
+    -fx-fill: transparent;
+}
+
+.nav-button-active .nav-icon {
+    -fx-stroke: #2dd4bf;
+}
+
+.nav-label {
+    -fx-text-fill: #94a3b8;
+    -fx-font-size: 13px;
+}
+
+.nav-button-active .nav-label {
+    -fx-text-fill: #139826;
+    -fx-font-weight: bold;
+}
