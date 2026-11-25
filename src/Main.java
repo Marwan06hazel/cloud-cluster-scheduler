@@ -43,6 +43,7 @@ public class Main {
                 }
                 return in;
             } catch (Exception e) {
+                in.processes.clear();
                 System.out.println("Please, enter a valid data and sequence :(");
                 if (!sc.hasNextLine()) {
                     System.out.println("No more input.");
