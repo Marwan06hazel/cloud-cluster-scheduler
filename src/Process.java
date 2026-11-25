@@ -1,11 +1,11 @@
 public class Process {
-    // ---- fixed input data ----
+    // Input data
     public final String id;
     public final int arrival;
     public final int burst;
     public final int priority;          // LOWER number = HIGHER priority
 
-    // ---- state the schedulers update ----
+    // Schedulers update
     public int remaining;
     public int firstRun = -1;           // time the process first got the CPU (-1 = never yet)
     public int finish = -1;             // completion time (-1 = not finished)
@@ -20,17 +20,16 @@ public class Process {
         this.remaining = burst;
     }
 
-    // Fresh copy with the state reset. Every scheduler should use fresh copy.
     public Process copy() {
         return new Process(id, arrival, burst, priority);
     }
 
     public boolean isFinished() { return remaining == 0; }
 
-    // ---- for metrics use (valid only after the process has finished), add others if needed ----
-    public int turnaround() { return finish - arrival; }
+    // Metrics
+    public int turnaround() { return finish - arrival;     }
     public int waiting()    { return turnaround() - burst; }
-    public int response()   { return firstRun - arrival; }
+    public int response()   { return firstRun - arrival;   }
 
     @Override
     public String toString() {

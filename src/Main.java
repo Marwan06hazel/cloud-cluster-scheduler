@@ -1,8 +1,10 @@
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Main {
 
@@ -12,13 +14,18 @@ public class Main {
     }
 
     static Input read(Scanner sc) {
-        Input in = new Input();
         System.out.println("Enter valid data in this sequence:\n'Quantum time' 'CS time' 'Number of processes'\nThen a line per each process like: 'P1 1 6 1'");
         while(true) {
+            Input in = new Input();
             try {
                 in.q = sc.nextInt();
                 in.cs = sc.nextInt();
                 int n = sc.nextInt();
+                if (in.q <= 0 || in.cs < 0 || n <= 0) {
+                    System.out.println("Q must be > 0, CS >= 0, processes > 0");
+                    throw new IllegalArgumentException();
+                }
+                Set<String> ids = new HashSet<>();
                 for (int i = 0; i < n; i++) {
                     String id = sc.next();
                     int arrival = sc.nextInt();
@@ -28,11 +35,19 @@ public class Main {
                         System.out.println("Bad data for " + id + ": burst must be > 0 and/or arrival >= 0");
                         throw new IllegalArgumentException();
                     }
+                    if (!ids.add(id)) {
+                        System.out.println("Duplicate id: " + id);
+                        throw new IllegalArgumentException();
+                    }
                     in.processes.add(new Process(id, arrival, burst, priority));
                 }
                 return in;
             } catch (Exception e) {
                 System.out.println("Please, enter a valid data and sequence :(");
+                if (!sc.hasNextLine()) {
+                    System.out.println("No more input.");
+                    System.exit(1);
+                }
                 sc.nextLine();
             }
         }
@@ -62,7 +77,7 @@ public class Main {
             String proc = "";
             SimulationResult.GanttSlot s = slotAt(r, t);
             if (s != null && s.start == t) {
-                if (!s.pid.equals("CS")) proc = s.pid;
+                if (!s.pid.equals("CS") && !s.pid.equals("IDLE")) proc = s.pid;
                 System.out.println("_".repeat(45));
             }
             String[] lines = r.log.getOrDefault(t, "").split("\n");
@@ -77,12 +92,6 @@ public class Main {
             if (t >= g.start && t < g.end) return g;
         return null;
     }
-
-    /**
-     * Use "java src/Main.java tests/t1.txt" or "java -cp out src/Main.java tests/t1.txt"
-     * to run the test cases
-     * Use "javac -d out src/*.java" to compile first if not
-     */
 
     public static void main(String[] args) throws Exception {
         Scanner sc = (args.length > 0) ? new Scanner(new File(args[0])) : new Scanner(System.in);

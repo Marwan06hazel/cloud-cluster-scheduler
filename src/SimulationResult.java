@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-// --- Scheduler should return it
+// Scheduler should return it
 public class SimulationResult {
     public final String schedulerName;
     public final List<Process> processes = new ArrayList<>();      // finished processes
@@ -16,7 +16,9 @@ public class SimulationResult {
         public final String pid;
         public final int start, end;
         public GanttSlot(String pid, int start, int end) {
-            this.pid = pid; this.start = start; this.end = end;
+            this.pid = pid;
+            this.start = start;
+            this.end = end;
         }
         @Override public String toString() { return "[" + start + "-" + end + "] " + pid; }
     }
@@ -25,12 +27,12 @@ public class SimulationResult {
         log.merge(time, text, (old, add) -> old + "\n" + add);
     }
 
-    // Helper: adds a slot and merges it with the previous one if same pid and contiguous.
+    // Adding and merging slots
     public void addSlot(String pid, int start, int end) {
         if (end <= start) return;
         if (!gantt.isEmpty()) {
             GanttSlot last = gantt.get(gantt.size() - 1);
-            if (last.pid.equals(pid) && last.end == start) {
+            if (last.pid.equals(pid) && last.end == start){
                 gantt.set(gantt.size() - 1, new GanttSlot(pid, last.start, end));
                 return;
             }

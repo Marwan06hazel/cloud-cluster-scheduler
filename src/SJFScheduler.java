@@ -17,8 +17,7 @@ public class SJFScheduler implements Scheduler {
         int completed = 0;
         int n = processes.size();
         Process previousProcess = null;
-        
-        
+
         while (completed < n) {
             Process currentProcess = null;
 
@@ -50,18 +49,18 @@ public class SJFScheduler implements Scheduler {
 
             previousProcess = currentProcess;
 
-            //Start time
+            // Start time
             if(currentProcess.firstRun == -1) {
                 currentProcess.firstRun = currentTime;
             }
 
-            //run process for 1s
+            // Run process for 1s
             result.addSlot(currentProcess.id, currentTime, currentTime+1);
             result.logAt(currentTime, currentProcess.id + " running, remaining = " + currentProcess.remaining);
             currentProcess.remaining--;
             currentTime++;
 
-            //process is done
+            // process is done
             if(currentProcess.remaining == 0){
                 currentProcess.finish = currentTime;
                 completed++;
