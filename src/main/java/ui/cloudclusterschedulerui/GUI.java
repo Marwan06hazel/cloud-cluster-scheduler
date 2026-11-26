@@ -73,7 +73,7 @@ public class GUI extends Application {
         );
         analysisNavBtn.setOnAction(e -> showView(analysisReportView, analysisNavBtn));
 
-        VBox navGroup = new VBox(6, sectionLabel, simulatorNavBtn, analysisNavBtn);
+        VBox navGroup = new VBox(6, sectionLabel, simulatorNavBtn);
 
         sidebar.getChildren().addAll( navGroup);
         return sidebar;
